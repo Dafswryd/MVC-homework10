@@ -1,38 +1,26 @@
-// var express = require('express');
-// var app = express();
-// var pool = require('./queries.js');
-// var things = require('./things.js');
-
-// app.use(express.json());
-
-// app.use('/things', things);
-
-
-// pool.connect((err, res) => {
-//     console.log(err);
-//     console.log('connected');
-// })
-
-// app.listen(3000);
-
-var express = require('express');
-var app = express();
-var pool = require('./queries.js');
-var things = require('./things.js');
+const express = require('express');
+const app = express();
+const pool = require('./queries.js');
+const things = require('./things.js');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./things.js').swaggerJSDoc;
 const port = 3000;
 
 app.use(express.json());
 
 app.use('/things', things);
 
+// Middleware untuk menampilkan dokumentasi Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 pool.connect((err, client) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        return;
-    }
-    console.log('Connected to the database');
+  if (err) {
+    console.error('Database Error', err);
+    return;
+  }
+  console.log('Database berhasil disambungkan');
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server berjalan di port ${port}`);
 });
