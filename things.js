@@ -26,7 +26,7 @@ const verifikasiToken = (req, res, next) => {
 
 const options = {
     definition: {
-        openapi: '5.0.0',
+        openapi: '3.0.0',
         info: {
             title: "Express API With Swagger",
             version: '0.1.0',
@@ -37,6 +37,10 @@ const options = {
 };
 
 const swaggerSpec = swaggerJSDoc(options);
+
+module.exports = {
+    swaggerSpec,
+  };
 
 // Definisi rute Swagger
 router.get('/swagger.json', (req, res) => {
