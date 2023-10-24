@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const pool = require('./config/queries.js');
 const things = require('./controllers/things.js');
-const usersRouter = require('./models/users.js')
-const moviesRouter = require('./models/movies.js')
+const usersRouter = require('./models/users.js');
+const moviesRouter = require('./models/movies.js');
+const uploadRouter = require('./models/upload.js');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const port = 3000;
@@ -37,6 +38,7 @@ app.use(
 
 app.use(express.json());
 
+app.use('/', uploadRouter);
 app.use('/things', things);
 app.use('/', usersRouter);
 app.use('/', moviesRouter);
