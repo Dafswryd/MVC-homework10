@@ -216,6 +216,7 @@ router.put('/users/:id', (req, res) => {
    *       500:
    *         description: Internal server error
    */
+  
   router.get('/movies', (req, res) => {
     // ... (kode untuk rute get all movies)
   });
